@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Loading /> component Loading component 1`] = `
+<div>
+  <div
+    class="chakra-spinner css-17lgtxu"
+  >
+    <span
+      class="css-f8n5zr"
+    >
+      Loading...
+    </span>
+  </div>
+</div>
+`;

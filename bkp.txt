@@ -1,0 +1,766 @@
+// import React from "react";
+// import { useTable, usePagination } from "react-table";
+// import {
+//   Table,
+//   Thead,
+//   Tbody,
+//   Tr,
+//   Th,
+//   Td,
+//   Flex,
+//   IconButton,
+//   Text,
+//   Tooltip,
+//   Select,
+//   NumberInput,
+//   NumberInputField,
+//   NumberInputStepper,
+//   NumberIncrementStepper,
+//   NumberDecrementStepper
+// } from "@chakra-ui/react";
+// import {
+//   ArrowRightIcon,
+//   ArrowLeftIcon,
+//   ChevronRightIcon,
+//   ChevronLeftIcon
+// } from "@chakra-ui/icons";
+
+// function CustomTable({ columns, data }: any) {
+//   // Use the state and functions returned from useTable to build your UI
+//   const {
+//     getTableProps,
+//     getTableBodyProps,
+//     headerGroups,
+//     prepareRow,
+//     page, // Instead of using 'rows', we'll use page,
+//     // which has only the rows for the active page
+
+//     // The rest of these things are super handy, too ;)
+//     canPreviousPage,
+//     canNextPage,
+//     pageOptions,
+//     pageCount,
+//     gotoPage,
+//     nextPage,
+//     previousPage,
+//     setPageSize,
+//     state: { pageIndex, pageSize }
+//   } = useTable(
+//     {
+//       columns,
+//       data,
+//       initialState: { pageIndex: 1 }
+//     },
+//     usePagination
+//   );
+
+//   // Render the UI for your table
+//   return (
+//     <>
+//       <Table {...getTableProps()}>
+//         <Thead>
+//           {headerGroups.map((headerGroup) => (
+//             <Tr {...headerGroup.getHeaderGroupProps()}>
+//               {headerGroup.headers.map((column) => (
+//                 <Th {...column.getHeaderProps()}>{column.render("Header")}</Th>
+//               ))}
+//             </Tr>
+//           ))}
+//         </Thead>
+//         <Tbody {...getTableBodyProps()}>
+//           {page.map((row: any) => {
+//             prepareRow(row);
+//             return (
+//               <Tr {...row.getRowProps()}>
+//                 {row.cells.map((cell: any) => {
+//                   return (
+//                     <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>
+//                   );
+//                 })}
+//               </Tr>
+//             );
+//           })}
+//         </Tbody>
+//       </Table>
+
+//       <Flex justifyContent="space-between" m={4} alignItems="center">
+//         <Flex>
+//           <Tooltip label="First Page">
+//             <IconButton
+//               onClick={() => gotoPage(0)}
+//               isDisabled={!canPreviousPage}
+//               icon={<ArrowLeftIcon h={3} w={3} />}
+//               mr={4}
+//               aria-label={"val"}
+//             />
+//           </Tooltip>
+//           <Tooltip label="Previous Page">
+//             <IconButton
+//               onClick={previousPage}
+//               isDisabled={!canPreviousPage}
+//               icon={<ChevronLeftIcon h={6} w={6} />}
+//               aria-label={"val"}
+//             />
+//           </Tooltip>
+//         </Flex>
+
+//         <Flex alignItems="center">
+//           <Text flexShrink="0" mr={8}>
+//             Page{" "}
+//             <Text fontWeight="bold" as="span">
+//               {pageIndex + 1}
+//             </Text>{" "}
+//             of{" "}
+//             <Text fontWeight="bold" as="span">
+//               {pageOptions.length}
+//             </Text>
+//           </Text>
+//           <Text flexShrink="0">Go to page:</Text>{" "}
+//           <NumberInput
+//             ml={2}
+//             mr={8}
+//             w={28}
+//             min={1}
+//             max={pageOptions.length}
+//             onChange={(value: any) => {
+//               const page = value ? value - 1 : 0;
+//               gotoPage(page);
+//             }}
+//             defaultValue={pageIndex + 1}
+//           >
+//             <NumberInputField />
+//             <NumberInputStepper>
+//               <NumberIncrementStepper />
+//               <NumberDecrementStepper />
+//             </NumberInputStepper>
+//           </NumberInput>
+//           <Select
+//             w={32}
+//             value={pageSize}
+//             onChange={(e) => {
+//               setPageSize(Number(e.target.value));
+//             }}
+//           >
+//             {[10, 20, 30, 40, 50].map((pageSize) => (
+//               <option key={pageSize} value={pageSize}>
+//                 Show {pageSize}
+//               </option>
+//             ))}
+//           </Select>
+//         </Flex>
+
+//         <Flex>
+//           <Tooltip label="Next Page">
+//             <IconButton
+//               onClick={nextPage}
+//               isDisabled={!canNextPage}
+//               icon={<ChevronRightIcon h={6} w={6} />}
+//               aria-label={"val"}
+//             />
+//           </Tooltip>
+//           <Tooltip label="Last Page">
+//             <IconButton
+//               onClick={() => gotoPage(pageCount - 1)}
+//               isDisabled={!canNextPage}
+//               icon={<ArrowRightIcon h={3} w={3} />}
+//               ml={4}
+//               aria-label={"val"}
+//             />
+//           </Tooltip>
+//         </Flex>
+//       </Flex>
+//     </>
+//   );
+// }
+
+// function PageInfo() {
+//   const columns = React.useMemo(
+//     () => [
+//       {
+//         Header: "Name",
+//         columns: [
+//           {
+//             Header: "First Name",
+//             accessor: "firstName"
+//           },
+//           {
+//             Header: "Last Name",
+//             accessor: "lastName"
+//           }
+//         ]
+//       },
+//       {
+//         Header: "Info",
+//         columns: [
+//           {
+//             Header: "Age",
+//             accessor: "age"
+//           },
+//           {
+//             Header: "Visits",
+//             accessor: "visits"
+//           },
+//           {
+//             Header: "Status",
+//             accessor: "status"
+//           },
+//           {
+//             Header: "Profile Progress",
+//             accessor: "progress"
+//           }
+//         ]
+//       }
+//     ],
+//     []
+//   );
+
+//   const data = [
+//       {
+//         firstName: "grass",
+//         lastName: "debt",
+//         age: 26,
+//         visits: 69,
+//         progress: 58,
+//         status: "single",
+//         subRows: undefined
+//       },
+//       {
+//         firstName: "grass",
+//         lastName: "debt",
+//         age: 26,
+//         visits: 69,
+//         progress: 58,
+//         status: "single",
+//         subRows: undefined
+//       }
+//   ];
+
+//   return <CustomTable columns={columns} data={data} />;
+// }
+
+// export default PageInfo;
+
+
+// import * as React from "react";
+// import { render } from "react-dom";
+
+// import { Table } from "react-chakra-pagination";
+
+// import { ChakraProvider } from "@chakra-ui/react";
+
+// // Use Chakra Ui for create a custom component for display field data in table
+// import {
+//   Flex,
+//   Avatar,
+//   Text,
+//   Box,
+//   Icon,
+//   Checkbox,
+//   Button,
+//   Heading
+// } from "@chakra-ui/react";
+
+// import { FiUser, FiCheck, FiDatabase } from "react-icons/fi";
+
+
+// // type User = {
+// //   id: number;
+// //   name: string;
+// //   email: string;
+// //   phone: string;
+// //   birthday: string;
+// //   avatar_url: string;
+// // };
+// type City = {
+//   id: number
+//   name: string
+//   country: string
+//   visited: boolean
+//   wishlist: boolean
+// }
+
+// const citites: City[] = [
+//   {
+//     id: 0,
+//     name: 'Moscow',
+//     country: 'Russia',
+//     visited: true,
+//     wishlist: true,
+//   },
+//   {
+//     id: 1,
+//     name: 'London',
+//     country: 'United Kingdom',
+//     visited: false,
+//     wishlist: false,
+//   },
+//   {
+//     id: 2,
+//     name: 'Saint Petersburg',
+//     country: 'Russia',
+//     visited: false,
+//     wishlist: false,
+//   },
+//   {
+//     id: 3,
+//     name: 'Berlin',
+//     country: 'Germany',
+//     visited: false,
+//     wishlist: false,
+//   },
+//   {
+//     id: 4,
+//     name: 'Madrid',
+//     country: 'Spain',
+//     visited: false,
+//     wishlist: false,
+//   },
+//   {
+//     id: 5,
+//     name: 'Kyiv',
+//     country: 'Ukraine',
+//     visited: false,
+//     wishlist: false,
+//   },
+//   {
+//     id: 6,
+//     name: 'Rome',
+//     country: 'Italy',
+//     visited: false,
+//     wishlist: false,
+//   },
+//   {
+//     id: 7,
+//     name: 'Paris',
+//     country: 'France',
+//     visited: false,
+//     wishlist: false,
+//   },
+// ]
+// // const users: User[] = [
+// //   {
+// //     id: 1,
+// //     name: "Carlin Gwinn",
+// //     email: "cgwinn0@buzzfeed.com",
+// //     phone: "(684) 9842794",
+// //     birthday: "04/11/2009",
+// //     avatar_url:
+// //       "https://robohash.org/assumendanihilodio.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 2,
+// //     name: "Yetta Snape",
+// //     email: "ysnape1@princeton.edu",
+// //     phone: "(645) 8617506",
+// //     birthday: "06/08/1989",
+// //     avatar_url:
+// //       "https://robohash.org/liberorationequasi.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 3,
+// //     name: "Carlin Gwinn",
+// //     email: "cgwinn0@buzzfeed.com",
+// //     phone: "(684) 9842794",
+// //     birthday: "04/11/2009",
+// //     avatar_url:
+// //       "https://robohash.org/assumendanihilodio.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 4,
+// //     name: "Yetta Snape",
+// //     email: "ysnape1@princeton.edu",
+// //     phone: "(645) 8617506",
+// //     birthday: "06/08/1989",
+// //     avatar_url:
+// //       "https://robohash.org/liberorationequasi.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 5,
+// //     name: "Carlin Gwinn",
+// //     email: "cgwinn0@buzzfeed.com",
+// //     phone: "(684) 9842794",
+// //     birthday: "04/11/2009",
+// //     avatar_url:
+// //       "https://robohash.org/assumendanihilodio.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 6,
+// //     name: "Yetta Snape",
+// //     email: "ysnape1@princeton.edu",
+// //     phone: "(645) 8617506",
+// //     birthday: "06/08/1989",
+// //     avatar_url:
+// //       "https://robohash.org/liberorationequasi.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 7,
+// //     name: "Carlin Gwinn",
+// //     email: "cgwinn0@buzzfeed.com",
+// //     phone: "(684) 9842794",
+// //     birthday: "04/11/2009",
+// //     avatar_url:
+// //       "https://robohash.org/assumendanihilodio.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 8,
+// //     name: "Yetta Snape",
+// //     email: "ysnape1@princeton.edu",
+// //     phone: "(645) 8617506",
+// //     birthday: "06/08/1989",
+// //     avatar_url:
+// //       "https://robohash.org/liberorationequasi.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 9,
+// //     name: "Carlin Gwinn",
+// //     email: "cgwinn0@buzzfeed.com",
+// //     phone: "(684) 9842794",
+// //     birthday: "04/11/2009",
+// //     avatar_url:
+// //       "https://robohash.org/assumendanihilodio.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 10,
+// //     name: "Yetta Snape",
+// //     email: "ysnape1@princeton.edu",
+// //     phone: "(645) 8617506",
+// //     birthday: "06/08/1989",
+// //     avatar_url:
+// //       "https://robohash.org/liberorationequasi.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 11,
+// //     name: "Carlin Gwinn",
+// //     email: "cgwinn0@buzzfeed.com",
+// //     phone: "(684) 9842794",
+// //     birthday: "04/11/2009",
+// //     avatar_url:
+// //       "https://robohash.org/assumendanihilodio.png?size=50x50&set=set1"
+// //   },
+// //   {
+// //     id: 12,
+// //     name: "Yetta Snape",
+// //     email: "ysnape1@princeton.edu",
+// //     phone: "(645) 8617506",
+// //     birthday: "06/08/1989",
+// //     avatar_url:
+// //       "https://robohash.org/liberorationequasi.png?size=50x50&set=set1"
+// //   }
+// // ]
+
+// function PageInfo({actionAllowed= false}) {
+//   const [page, setPage] = React.useState(1);
+//   const tableData = citites.map((city) => ({
+//     name: city.name,
+//     country: city.country,
+//     wishAction: (
+//       <Button
+//         colorScheme="white"
+//         onClick={() => alert("Wishlist user!")}
+//         size="sm"
+//         disabled={!actionAllowed}
+//       >
+//         <Checkbox isChecked={city.wishlist}/>
+//       </Button>
+//     ),
+//     visitAction:(
+//       <Button
+//         colorScheme="white"
+//         onClick={() => alert("visted user!")}
+//         size="sm"
+//         disabled={!actionAllowed}
+//       >
+//         <Checkbox isChecked={city.visited}/>
+        
+//       </Button>
+//     ),
+//   }));
+
+//   const tableColumns = [
+//     {
+//       Header: "Name",
+//       accessor: "name" as const
+//     },
+//     {
+//       Header: "Country",
+//       accessor: "country" as const
+//     },
+//     {
+//       Header: "Wish",
+//       accessor: "wishAction" as const
+//     },
+//     {
+//       Header: "Visited",
+//       accessor: "visitAction" as const
+//     }
+
+//   ];
+
+//   return (
+//     <Box p="2">
+//       <Box mt="6">
+//         <Table
+//           colorScheme="blue"
+//           // Fallback component when list is empty
+//           emptyData={{
+//             icon: FiDatabase,
+//             text: "No city found"
+//           }}
+//           totalRegisters={citites.length}
+//           page={page}
+//           // Listen change page event and control the current page using state
+//           onPageChange={(page: any) => setPage(page)}
+//           columns={tableColumns}
+//           data={tableData}
+//         />
+//       </Box>
+//     </Box>
+//   );
+// }
+// export default PageInfo;
+
+
+// import {
+//     UseColumnOrderInstanceProps,
+//     UseColumnOrderState,
+//     UseExpandedHooks,
+//     UseExpandedInstanceProps,
+//     UseExpandedOptions,
+//     UseExpandedRowProps,
+//     UseExpandedState,
+//     UseFiltersColumnOptions,
+//     UseFiltersColumnProps,
+//     UseFiltersInstanceProps,
+//     UseFiltersOptions,
+//     UseFiltersState,
+//     UseGlobalFiltersColumnOptions,
+//     UseGlobalFiltersInstanceProps,
+//     UseGlobalFiltersOptions,
+//     UseGlobalFiltersState,
+//     UseGroupByCellProps,
+//     UseGroupByColumnOptions,
+//     UseGroupByColumnProps,
+//     UseGroupByHooks,
+//     UseGroupByInstanceProps,
+//     UseGroupByOptions,
+//     UseGroupByRowProps,
+//     UseGroupByState,
+//     UsePaginationInstanceProps,
+//     UsePaginationOptions,
+//     UsePaginationState,
+//     UseResizeColumnsColumnOptions,
+//     UseResizeColumnsColumnProps,
+//     UseResizeColumnsOptions,
+//     UseResizeColumnsState,
+//     UseRowSelectHooks,
+//     UseRowSelectInstanceProps,
+//     UseRowSelectOptions,
+//     UseRowSelectRowProps,
+//     UseRowSelectState,
+//     UseRowStateCellProps,
+//     UseRowStateInstanceProps,
+//     UseRowStateOptions,
+//     UseRowStateRowProps,
+//     UseRowStateState,
+//     UseSortByColumnOptions,
+//     UseSortByColumnProps,
+//     UseSortByHooks,
+//     UseSortByInstanceProps,
+//     UseSortByOptions,
+//     UseSortByState
+//   } from 'react-table'
+  
+//   declare module 'react-table' {
+//     // take this file as-is, or comment out the sections that don't apply to your plugin configuration
+  
+//     export interface TableOptions<D extends Record<string, unknown>>
+//       extends UseExpandedOptions<D>,
+//         UseFiltersOptions<D>,
+//         UseGlobalFiltersOptions<D>,
+//         UseGroupByOptions<D>,
+//         UsePaginationOptions<D>,
+//         UseResizeColumnsOptions<D>,
+//         UseRowSelectOptions<D>,
+//         UseRowStateOptions<D>,
+//         UseSortByOptions<D>,
+//         // note that having Record here allows you to add anything to the options, this matches the spirit of the
+//         // underlying js library, but might be cleaner if it's replaced by a more specific type that matches your
+//         // feature set, this is a safe default.
+//         Record<string, any> {}
+  
+//     export interface Hooks<D extends Record<string, unknown> = Record<string, unknown>>
+//       extends UseExpandedHooks<D>,
+//         UseGroupByHooks<D>,
+//         UseRowSelectHooks<D>,
+//         UseSortByHooks<D> {}
+  
+//     export interface TableInstance<D extends Record<string, unknown> = Record<string, unknown>>
+//       extends UseColumnOrderInstanceProps<D>,
+//         UseExpandedInstanceProps<D>,
+//         UseFiltersInstanceProps<D>,
+//         UseGlobalFiltersInstanceProps<D>,
+//         UseGroupByInstanceProps<D>,
+//         UsePaginationInstanceProps<D>,
+//         UseRowSelectInstanceProps<D>,
+//         UseRowStateInstanceProps<D>,
+//         UseSortByInstanceProps<D> {}
+  
+//     export interface TableState<D extends Record<string, unknown> = Record<string, unknown>>
+//       extends UseColumnOrderState<D>,
+//         UseExpandedState<D>,
+//         UseFiltersState<D>,
+//         UseGlobalFiltersState<D>,
+//         UseGroupByState<D>,
+//         UsePaginationState<D>,
+//         UseResizeColumnsState<D>,
+//         UseRowSelectState<D>,
+//         UseRowStateState<D>,
+//         UseSortByState<D> {}
+  
+//     export interface ColumnInterface<D extends Record<string, unknown> = Record<string, unknown>>
+//       extends UseFiltersColumnOptions<D>,
+//         UseGlobalFiltersColumnOptions<D>,
+//         UseGroupByColumnOptions<D>,
+//         UseResizeColumnsColumnOptions<D>,
+//         UseSortByColumnOptions<D> {}
+  
+//     export interface ColumnInstance<D extends Record<string, unknown> = Record<string, unknown>>
+//       extends UseFiltersColumnProps<D>,
+//         UseGroupByColumnProps<D>,
+//         UseResizeColumnsColumnProps<D>,
+//         UseSortByColumnProps<D> {}
+  
+//     export interface Cell<D extends Record<string, unknown> = Record<string, unknown>, V = any>
+//       extends UseGroupByCellProps<D>,
+//         UseRowStateCellProps<D> {}
+  
+//     export interface Row<D extends Record<string, unknown> = Record<string, unknown>>
+//       extends UseExpandedRowProps<D>,
+//         UseGroupByRowProps<D>,
+//         UseRowSelectRowProps<D>,
+//         UseRowStateRowProps<D> {}
+//   }
+
+
+
+query Query($cityId: Int!) {
+  city(id: $cityId) {
+    name
+    country
+    visited
+    wishlist
+    id
+  }
+}
+
+
+// const {cities: arrCity, isLoading } = action.payload
+      // return { ...state, cities: arrCity, isLoading }
+      return { ...state, ...action.payload}
+
+
+
+      import { stringify } from 'querystring'
+import { Reducer, useEffect, useReducer } from 'react'
+import { ActionType, Cities, IAction, ICity, IState, PutPayload } from '../dataStructure'
+import { initialState, putCities, reducer, setCities, setError, setIsLoading } from '../store'
+
+const getHeaders = (): HeadersInit => {
+  const headers = new Headers()
+  headers.append('accept', 'application/json; charset=utf-8')
+  headers.append('Content-Type', 'application/json')
+
+  return headers
+}
+
+export const GetOld = async (queryData: string): Promise<Cities | Error> => {
+  const url = `/cities${queryData}`
+  const headers = getHeaders()
+  try {
+    const response = await fetch(url, { headers })
+    const json = await response.json()
+    return json.cities
+  } catch (error) {
+    throw new Error('Failed to fetch data. Please try again later!')
+  }
+}
+
+export const PutW = (({dispatch, payload}: any) => {
+  const url = `/cities`
+  const requestPayload = {
+    method: 'PUT',
+    body: JSON.stringify(payload)
+  }
+  send({dispatch, storeMehod: 'putCities', url, requestPayload})
+})
+
+const send = (({url, requestPayload, storeMehod, dispatch}: any ) => {
+  const fetchData = async () => {
+    try {
+      const headers = getHeaders()
+      requestPayload = {...requestPayload, ...headers}
+      setIsLoading(dispatch, true)
+      const response = await fetch(url, requestPayload)
+      const data = await response.json()
+      storeMehod(dispatch, data)
+      // if ('GET' === method) {
+        
+      // } else {
+      //   putCities(dispatch, data)
+      // }
+    } catch (error: any) {
+      setError(dispatch, error)
+    }
+  }
+  fetchData()
+})
+
+export const sendApiCall = ({method= 'GET', dispatch, urlData, payload}: any) => {
+  // const url = `/cities${queryData}`
+  // const requestPayload = {
+  //   method: 'GET',
+  // }
+  // send({dispatch, storeMehod: 'setCities', url, requestPayload})
+  const fetchData = async () => {
+    try {
+      debugger
+      const url = `/cities${urlData}`
+      const headers = getHeaders()
+
+      let requestPayload = {
+        method,
+        headers,
+      }
+
+      if('GET' !== method) {
+        requestPayload = {...requestPayload, ...{body: JSON.stringify(payload)}}
+      }
+
+      setIsLoading(dispatch, true)
+      const response = await fetch(url, requestPayload)
+      const data = await response.json()
+      if ('GET' === method) {
+        setCities(dispatch, data.cities || [])
+      } else {
+        putCities(dispatch, data)
+      }
+    } catch (error: any) {
+      setError(dispatch, error)
+    }
+  }
+  fetchData()
+}
+
+export const Put = async (id: number, payload: PutPayload): Promise<ICity | Error> => {
+  const url = `/cities/${id}`
+  const headers = getHeaders()
+  const body = JSON.stringify(payload)
+
+  try {
+    const response = await fetch(url, { method: 'PUT', body, headers })
+    const json = await response.json()
+    return json
+  } catch (error) {
+    throw new Error('Failed to update data. Please try again later!')
+  }
+}
