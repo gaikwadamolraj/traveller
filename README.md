@@ -23,7 +23,7 @@
      yarn client:test
      ```
 ## Functionality
-:ballot_box_with_check: CI using github action
+:white_check_mark: CI using github action
 
 :white_check_mark: Home page - User able to search city by name
 
